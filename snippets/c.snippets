@@ -98,7 +98,7 @@ snippet case
 snippet for
 	for (${2:i} = 0; $2 < ${1:count}; $2${3:++}) {
 		${4}
-	}
+	}/*end of $1*/
 # for (custom)
 snippet forr
 	for (${1:i} = ${2:0}; ${3:$1 < 10}; $1${4:++}) {
@@ -235,3 +235,36 @@ snippet gpl
 	 */
 
 	${0}
+#add note to fun
+snippet nth
+	/********************************************************************
+	 **   Function:		${1}
+	 **Description:
+	 **      Input:
+	 **     Output:
+	 **     Return:
+	 **     Others:
+	 ********************************************************************/
+#add note of file
+snippet ntw
+	/********************************************************************
+	 **   FileName:		${1}
+	 **Description:
+	 **     Author:
+	 **     Others:
+	 **    History:
+	 ********************************************************************/
+#add note
+snippet nt
+	/*${1}*/
+#add note
+snippet ntm
+	/*${1}
+	 *
+	 */
+snippet fixme
+	    //for qml webkit webview port with new webcore, ${1}, modified by zhaopan
+	#if NUFRONT_FIXME
+	#error "[Error] please fixme, this source is not sure. "
+	#else
+	#endif  //end if NUFRONT_FIXME

@@ -24,12 +24,25 @@ private:
 };
 endsnippet
 
-snippet ns "namespace .. (namespace)"
-namespace${1/.+/ /m}${1:`!p snip.rv = snip.basename or "name"`}
+snippet clqt "class .. (class)"
+class ${1:`!p snip.rv = snip.basename or "name"`}: public QObject
 {
-	${VISUAL}${0}
-}${1/.+/ \/* /m}$1${1/.+/ *\/ /m}
+    Q_OBJECT
+public:
+	${1/(\w+).*/$1/}(${2:QObject* parent = 0});
+	virtual ~${1/(\w+).*/$1/} ();
+
+private:
+	${0:/* data */}
+};
 endsnippet
+
+snippet ns "namespace .. (namespace)"
+namespace${1/.+/ /m}${1:`!p snip.rv = snip.basename or "name"`} {
+	${VISUAL}${0}
+} /* end of namespace $1*/
+endsnippet
+#}${1/.+/ \/* /m}$1${1/.+/ *\/ /m}
 
 snippet readfile "read file (readF)"
 std::vector<char> v;
@@ -54,4 +67,121 @@ snippet tp "template <typename ..> (template)"
 template <typename ${1:_InputIter}>
 endsnippet
 
-# vim:ft=snippets:
+snippet ntfileHeader "版权信息"
+ /*
+  * This file is part of ${1:commonWidgets}
+  * Copyright (C) 2016 Beijing Yuan Xin Technology Co.,Ltd. All rights reserved.
+  * Authors:
+  *       zhao pan <zhaopan@syberos.com>
+  *      
+  * This software, including documentation, is protected by copyright controlled
+  * by Beijing Yuan Xin Technology Co.,Ltd. All rights are reserved.
+  */
+endsnippet
+
+#note head
+snippet ntbrief "注释简要描述"
+/*!
+ \qmltype ${1:`!p snip.rv = snip.basename`}
+ \inqmlmodule ${2:com.syberos.basewidgets}
+ \since 2.0
+ \ingroup controls
+ \brief ${3:简要.....}
+ 
+ \示例代码:
+ \qml
+ ${5:举例}
+ \end qml
+*/
+endsnippet
+
+snippet fn "filename"
+${1:`!p snip.rv = snip.basename`}
+endsnippet
+
+snippet construct "构造函数"
+${1:`!p snip.rv = snip.basename`}::$1(${2:void})
+{
+
+}
+
+$1::~$1()
+{
+
+}
+endsnippet
+
+snippet ntenum "ntenum"
+/*!
+  \enum 
+  \brief
+  \value
+  \value
+  \value
+ */
+endsnippet
+
+snippet ntclass "filename"
+/*!
+  \class ${1:`!p snip.rv = snip.basename`}
+  \inmodule ${2:moudle}
+  \brief ${3:简介。}
+  \ingroup ${4:所属组的名称。}
+ */
+endsnippet
+
+snippet ntconstruct "构造函数"
+/*!
+  \brief 构造函数。
+  \a ${1:参数}
+ */
+endsnippet
+
+snippet ntdestruct "构造函数"
+/*!
+  \brief 析构函数。
+  \a ${1:参数}
+ */
+endsnippet
+
+snippet ntfunc "函数注释"
+/*!
+  \brief ${1:简介}
+  \a ${2:参数}
+  \brief 返回值
+*/
+endsnippet
+
+snippet ntsignal "信号函数注释"
+/*!
+  \fn ${1}
+  \brief 
+ */
+endsnippet
+
+#qDebug() << "[" <<__FILE__ << ":" << __LINE__ <<"]" << "["<<Q_FUNC_INFO<< "]" << ${1};
+snippet debug "#ifdef DEBUG"
+qDebug() << "[" <<Q_FUNC_INFO<< "]" << ${1};
+endsnippet
+
+snippet cnt"#ifdef DEBUG"
+connect(${1:this}, SIGNAL(${2:signal}), ${3:this}, SLOT(${4:fun}));
+endsnippet
+
+snippet mainqt "qt main fun body"
+#include <QCoreApplication>
+
+int main(int argc, char *argv[])
+{
+    QCoreApplication app(argc, argv);
+    
+    return app.exec();
+}
+endsnippet
+
+snippet ifdebug "#ifdef DEBUG"
+#ifdef DEBUG
+qDebug() << "["<<__FILE__<<":"<<__LINE__<<"]" << ${1};
+#endif
+endsnippet
+ vim:ft=snippets:

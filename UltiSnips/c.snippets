@@ -14,6 +14,11 @@ snippet ifndef "#ifndef ... #define ... #endif"
 #endif
 endsnippet
 
+snippet ifdef "#define ..."
+#ifdef ${1}
+#endif // end if $1
+endsnippet 
+
 snippet #if "#if #endif" b
 #if ${1:0}
 ${VISUAL}${0}
@@ -45,9 +50,29 @@ int main(int argc, char *argv[])
 }
 endsnippet
 
-snippet for "for loop (for)"
-for (${2:i} = 0; $2 < ${1:count}; ${3:++$2})
+snippet qtcoremain "main() (main)"
+#include <QCoreApplication>
+
+int main(int argc, char *argv[])
 {
+    QCoreApplication a(argc, argv);
+	${VISUAL}${0}
+	return a.exec();
+}
+endsnippet
+
+snippet qtappmain "main() (main)"
+#include <QApplicaiton>
+int main(int argc, char *argv[])
+{
+    QApplicaiton a(argc, argv);
+	${VISUAL}${0}
+	return a.exec();
+}
+endsnippet
+
+snippet for "for loop (for)"
+for (${2:i} = 0; $2 < ${1:count}; ${3:++$2}) {
 	${VISUAL}${0}
 }
 endsnippet
@@ -100,8 +125,7 @@ fprintf(${1:stderr}, "${2:%s}\n"${2/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$3${2/([^%]|%
 endsnippet
 
 snippet if "if .. (if)"
-if (${1:/* condition */})
-{
+if (${1:/* condition */}) {
 	${VISUAL}${0}
 }
 endsnippet
@@ -129,8 +153,9 @@ else
 }
 endsnippet
 
+# printf("${1:%s}\n"${1/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$2${1/([^%]|%%)*(%.)?.*/(?2:\);)/}
 snippet printf "printf .. (printf)"
-printf("${1:%s}\n"${1/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$2${1/([^%]|%%)*(%.)?.*/(?2:\);)/}
+printf("[%s:%d %s]${1}\n", __FILE__, __LINE__, __FUNCTION__);
 endsnippet
 
 snippet st "struct"
@@ -151,4 +176,62 @@ snippet fund "function declaration" b
 ${1:void} ${2:function_name}(${3});
 endsnippet
 
+#zhaoapn-------------------------begin
+snippet nth
+/********************************************************************
+ **   Function:		${1}
+ **Description:
+ **      Input:
+ **     Output:
+ **     Return:
+ **     Others:
+ ********************************************************************/
+endsnippet
+
+#add note of file
+snippet ntw
+ /*
+ * This file is part of ${1}
+ * Copyright (C) 2014 Beijing Yuan Xin Technology Co.,Ltd. All rights reserved.
+ * Authors:
+ *       zhao pan <zhaopan@syberos.com>
+ *      
+ * This software, including documentation, is protected by copyright controlled
+ * by Beijing Yuan Xin Technology Co.,Ltd. All rights are reserved.
+ */
+endsnippet
+
+snippet nt
+/*${1}*/
+endsnippet
+
+snippet ntm
+/*${1}
+ *
+ */
+endsnippet
+
+snippet fixme
+//for qml webkit webview port with new webcore, ${1}, modified by zhaopan
+endsnippet
+
+snippet adnt
+//for ${1}, added by zhaopan
+//end added by zhaopan
+
+snippet debug "#ifdef DEBUG"
+qDebug() << "[" <<__FILE__ << ":" << __LINE__ <<"]" << "["<<Q_FUNC_INFO<< "]" << ${1};
+endsnippet
+
+snippet ifdebug "#ifdef DEBUG"
+#ifdef DEBUG
+qDebug() << "[" <<__FILE__ << ":" << __LINE__ << "]" << "[" <<Q_FUNC_INFO<< "]" << ${1};
+#endif
+endsnippet
+
+snippet mdnt
+//for ${1}, modified by zhaopan
+//end modified by zhaopan
+endsnippet
+#zhaoapn-------------------------end
 # vim:ft=snippets:

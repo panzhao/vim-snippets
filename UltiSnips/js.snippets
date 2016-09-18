@@ -1,0 +1,333 @@
+###########################################################################
+#                            TextMate Snippets                            #
+###########################################################################
+
+priority -50
+
+snippet def "#define ..."
+#define ${1}
+endsnippet
+
+snippet ifndef "#ifndef ... #define ... #endif"
+#ifndef ${1/([A-Za-z0-9_]+).*/$1/}
+#define ${1:SYMBOL} ${2:value}
+#endif
+endsnippet
+
+snippet #if "#if #endif" b
+#if ${1:0}
+${VISUAL}${0}
+#endif
+endsnippet
+
+snippet inc "#include local header (inc)"
+#include "${1:`!p snip.rv = snip.basename + '.h'`}"
+endsnippet
+
+snippet Inc "#include <> (Inc)"
+#include <${1:.h}>
+endsnippet
+
+snippet mark "#pragma mark (mark)"
+#if 0
+${1:#pragma mark -
+}#pragma mark $2
+#endif
+
+$0
+endsnippet
+
+snippet main "main() (main)"
+int main(int argc, char *argv[])
+{
+	${VISUAL}${0}
+	return 0;
+}
+endsnippet
+
+snippet for "for loop (for)"
+for (${2:i} = 0; $2 < ${1:count}; ${3:++$2}) {
+	${VISUAL}${0}
+}
+endsnippet
+
+snippet fori "for int loop (fori)"
+for (${4:int} ${2:i} = 0; $2 < ${1:count}; ${3:++$2})
+{
+	${VISUAL}${0}
+}
+endsnippet
+
+snippet enum "Enumeration"
+enum ${1:name} { $0 };
+endsnippet
+
+snippet once "Include header once only guard"
+#ifndef ${1:`!p
+if not snip.c:
+	import random, string
+	name = re.sub(r'[^A-Za-z0-9]+','_', snip.fn).upper()
+	rand = ''.join(random.sample(string.ascii_letters+string.digits, 8))
+	snip.rv = ('%s_%s' % (name,rand)).upper()
+else:
+	snip.rv = snip.c`}
+#define $1
+
+${VISUAL}${0}
+
+#endif /* end of include guard: $1 */
+endsnippet
+
+snippet td "Typedef"
+typedef ${1:int} ${2:MyCustomType};
+endsnippet
+
+snippet wh "while loop"
+while(${1:/* condition */}) {
+	${VISUAL}${0}
+}
+endsnippet
+
+snippet do "do...while loop (do)"
+do {
+	${VISUAL}${0}
+} while(${1:/* condition */});
+endsnippet
+
+snippet fprintf "fprintf ..."
+fprintf(${1:stderr}, "${2:%s}\n"${2/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$3${2/([^%]|%%)*(%.)?.*/(?2:\);)/}
+endsnippet
+
+snippet if "if .. (if)"
+if (${1:/* condition */}) {
+	${VISUAL}${0}
+}/*! end of if ( ${1/([A-Za-z0-9_]+).*/$1/}) */
+endsnippet
+
+snippet el "else .. (else)"
+else {
+	${VISUAL}${0}
+}
+endsnippet
+
+snippet eli "else if .. (eli)"
+else if (${1:/* condition */}) {
+	${VISUAL}${0}
+}
+endsnippet
+
+snippet ife "if .. else (ife)"
+if (${1:/* condition */}) {
+	${2}
+} else {
+	${3:/* else */}
+}
+endsnippet
+
+snippet printf "printf .. (printf)"
+printf("${1:%s}\n"${1/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$2${1/([^%]|%%)*(%.)?.*/(?2:\);)/}
+endsnippet
+
+snippet st "struct"
+struct ${1:`!p snip.rv = (snip.basename or "name") + "_t"`} {
+	${0:/* data */}
+};
+endsnippet
+
+snippet fun "function" b
+function ${1:function_name}(${3}) {
+	${VISUAL}${0}
+} /*! end of ${1/([A-Za-z0-9_]+).*/$1/} */
+endsnippet
+
+snippet fund "function declaration" b
+${1:void} ${2:function_name}(${3});
+endsnippet
+
+#zhaoapn-------------------------begin
+snippet nth
+/********************************************************************
+ **   Function:		${1}
+ **Description:
+ **      Input:
+ **     Output:
+ **     Return:
+ **     Others:
+ ********************************************************************/
+endsnippet
+
+#add note of file
+snippet ntfileHeader "版权信息"
+ /*
+  * This file is part of ${1:syberos-toolkit-core}
+  * Copyright (C) 2015 Beijing Yuan Xin Technology Co.,Ltd. All rights reserved.
+  * Authors:
+  *       zhao pan <zhaopan@syberos.com>
+  *      
+  * This software, including documentation, is protected by copyright controlled
+  * by Beijing Yuan Xin Technology Co.,Ltd. All rights are reserved.
+  */
+endsnippet
+
+#note head
+snippet ntbrief "注释简要描述"
+/*!
+ \qmltype ${1:`!p snip.rv = snip.basename`}
+ \inqmlmodule ${2:com.syberos.basewidgets}
+ \since 2.0
+ \ingroup controls
+ \brief ${3:简要.....}
+ 
+ \示例代码:
+ \qml
+ ${5:举例}
+ \end qml
+*/
+endsnippet
+
+snippet nt "普通单行注释"
+/*! ${1} */
+endsnippet
+
+snippet nti "注释，不加入文档"
+/*! \internal ${1} */
+endsnippet
+
+snippet ntm  "普通多行注释"
+/*!${1}
+ *
+ */
+endsnippet
+
+snippet import "import QtQuick 2.0"
+import ${1:QtQuick 2.0}
+endsnippet
+
+snippet property "property type name:value"
+property ${1:Item} ${2:name}: ${4:null}
+endsnippet
+
+snippet fixme
+/*!FIXME:, ${1}, modified by zhaopan */
+endsnippet
+
+snippet adnt "//for ${1}, added by zhaopan //end added by zhaopan"
+/*! for ${1}, added by zhaopan */
+endsnippet
+
+snippet mdnt "//for ${1}, modified by zhaopan //end modified by zhaopan"
+/*! for ${1}, modified by zhaopan */
+endsnippet
+
+snippet transitions "transitions"
+transitions: [
+    Transition {
+        from: ${1:state}
+        to: ${2:state}
+    }
+]
+endsnippet
+
+snippet Item "Item"
+${1/([A-Za-z0-9_]+).*/$1/} {
+    id: ${1:name}
+} /*! end of ${1:Item} */
+endsnippet
+
+snippet image "image" 
+Image {
+    id: ${1:name}
+}
+endsnippet
+
+snippet Rectangle "Rectangle"
+Rectangle {
+    id: ${1:name}
+}
+endsnippet
+
+snippet Transition "Transition"
+Transition {
+    from: "${1:fromState}"
+    to: "${1:toState}"
+}
+endsnippet
+
+snippet State "state"
+State {
+    name: "${1:stateName}"
+    PropertyChanges {
+        target: ${1:target}
+    }
+}
+endsnippet
+
+snippet states "states"
+states: [
+    State {
+        name: ${1:name}
+        PropertyChanges {
+            target: ${2:target}
+        }
+    }
+]
+endsnippet
+
+snippet text "text"
+Text {
+    ${1:id}
+}
+endsnippet
+
+snippet PauseAnimation "PauseAnimation { duration: ${1:200} }"
+PauseAnimation { duration: ${1:200} }
+endsnippet
+
+snippet PropertyAction "PropertyAction { target: ${1:target}; properties: ${2:property} }"
+PropertyAction { target: ${1:target}; properties: ${2:property} }
+endsnippet
+
+snippet propertyanimation "PropertyAction { target: ${1:target}; properties: ${2:property} }"
+PropertyAction { target: ${1:target}; properties: ${2:property} }
+endsnippet
+#zhaoapn-------------------------end
+# vim:ft=snippets:
+
+snippet quickTest "程序初始化"
+import QtQuick 2.2                                                                  
+import QtQuick.Window 2.1                                                           
+import QtQuick.Controls 1.1                                                         
+import com.syberos.basewidgets 2.0                                                  
+                                                                                    
+Window {                                                                            
+    id: root                                                                        
+    visible: true                                                                   
+    width: 800                                                                      
+    height: 600                                                                     
+
+	$1
+}                                                                                   
+endsnippet
+
+snippet component "component.oncompleted"
+Component.onCompleted:{}
+endsnippet
+
+snippet binding "binding"
+Binding { target: ${1:target}; property: ${2:property}; value: ${3:value }}
+endsnippet
+
+snippet connections "connections"
+Connections {
+    target: ${1:target}
+}
+endsnippet
+
+
+snippet Qt.binding "qt.binding"
+Qt.binding(function (){return ${1:your code}}) 
+endsnippet
+
+snippet fn "filename"
+${1:`!p snip.rv = snip.basename`}
+endsnippet

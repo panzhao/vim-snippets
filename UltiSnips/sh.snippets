@@ -17,7 +17,7 @@ def getShell():
 				if shell == "kornshell":
 					return "ksh"
 				if shell == "posix":
-					return "sh"
+					return "bash"
 				return shell
 	return "sh"
 endglobal
@@ -87,6 +87,19 @@ snippet while "while ... (done)"
 while ${2:[[ ${1:condition} ]]}; do
 	${0:#statements}
 done
+endsnippet
+
+snippet ntfileHeader "nt-----"
+######################################################
+#written by zhao pan <zhaopan@syberos.com>
+#        
+#
+#
+######################################################
+endsnippet
+
+snippet ec "while ... (done)"
+echo -e "\033[31m ${1:string} \033[0m"
 endsnippet
 
 # vim:ft=snippets:
